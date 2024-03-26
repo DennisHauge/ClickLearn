@@ -42,7 +42,7 @@ class Capterra:
         """
 
         self.accessToken = '9oNpR3ALYMoyJTXk'
-        self.DataboxToken = 'f4c1d2363ff345b59b2fe68e14873919'
+        self.DataboxToken = '83d1bf67ff0c42b8a70a4b9bd979599c'
         self.requests = 0
         self.requestHeaders = {
             'Accept': 'application/json',
