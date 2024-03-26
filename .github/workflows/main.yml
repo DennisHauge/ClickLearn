@@ -18,4 +18,4 @@ jobs:
           pip install -r requirements.txt
       - name: Sync capterra data
         run: |
-          python capterra.py
+          python Capterra.py
