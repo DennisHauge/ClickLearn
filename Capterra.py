@@ -108,32 +108,6 @@ class Capterra:
                     self.requests += 1
                     return result
 
-    def create_count_metric(self, pandasdataframe, date_column, value_column, metric_name, dimension=None):
-        """From a Pandas DataFrame create a dictionary in the format required by the Databox API for a Metric
-        Args:
-            <pandas.DataFrame> pandasdataframe: DataFrame to create the metric from
-            <str> date_column: Name of the DataFrame column to be used as date
-            <str> value_column: Name of the DataFrame column to be used as value
-            <str> metric_name: the metric name to be sent to databox
-            <str> dimension: the name of the DataFrame column to be used as dimension
-        """
-        if dimension is not None:
-            new_metric = pandasdataframe.groupby([date_column, dimension])[value_column].nunique() \
-                .reset_index().to_dict(orient="index")
-        else:
-            new_metric = pandasdataframe.groupby([date_column])[value_column].nunique() \
-                .reset_index().to_dict(orient="index")
-
-        for index, row in new_metric.items():
-            data = {
-                '$' + metric_name: row[value_column],
-                'date': row[date_column],
-            }
-            if dimension is not None:
-                data[dimension.title()] = row[dimension]
-
-            databox.append(self.DataboxToken, data)
-
     def create_sum_metric(self, pandasdataframe, date_column, value_column, metric_name, dimension=None):
         """From a Pandas DataFrame create a dictionary in the format required by the Databox API for a Metric
         Args:
@@ -173,13 +147,11 @@ class Capterra:
         # time transformations
         tz = pytz.timezone('UTC')
         dt_today = datetime.datetime.fromtimestamp(time.time(), tz=tz)
-        dt_start = (dt_today.replace(day=1) - relativedelta(months=2))
 
         endpoint = '/clicks'
         data = []
         params = {
             'start_date': '2024-01-01',
-            'end_date': dt_today.strftime("%Y-%m-%d"),
             # 'scroll_id': None
         }
 
