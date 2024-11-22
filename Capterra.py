@@ -238,7 +238,6 @@ async def main():
 
 databox = databox.Databox()
 
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 asyncio.run(main())
 
 databox.push()
