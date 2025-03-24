@@ -153,7 +153,7 @@ class Capterra:
 
         for index, row in new_metric.items():
             data = {
-                '$' + metric_name.title(): row[value_column],
+                '$' + metric_name.title(): round(row[value_column], 2),
                 'date': row[date_column]
             }
             if dimension is not None:
@@ -178,7 +178,9 @@ class Capterra:
         endpoint = '/clicks'
         data = []
         params = {
-            'start_date': dt_start.strftime("%Y-%m-%d")
+            # 'start_date': dt_start.strftime("%Y-%m-%d")
+            'start_date': '2025-01-01',
+            'end_date': '2025-04-01'
             # 'scroll_id': None
         }
 
@@ -243,4 +245,3 @@ asyncio.run(main())
 databox.push()
 
 print(datetime.datetime.now() - TIME_BEGIN)
-
