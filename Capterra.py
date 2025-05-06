@@ -178,10 +178,9 @@ class Capterra:
         endpoint = '/clicks'
         data = []
         params = {
-            'start_date': dt_start.strftime("%Y-%m-%d"),
+            'start_date': dt_start.strftime("%Y-%m-%d")
             # 'start_date': '2025-01-01',
             # 'end_date': '2025-04-01'
-            'scroll_id': None
         }
 
         while True:
