@@ -2,7 +2,11 @@ name: Keepalive
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # runs monthly
+    - cron: '0 0 1 * *'   # monthly is fine
+  workflow_dispatch:       # lets you run it manually to test
+
+permissions:
+  actions: write
 
 jobs:
   keepalive:
@@ -10,3 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: gautamkrishnar/keepalive-workflow@v2
+        with:
+          workflow_files: "your-daily-script.yml"   # the filename in .github/workflows/
+          time_elapsed: "0"
